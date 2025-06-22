@@ -1,15 +1,13 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
-import "./MainContainer.css";
+import "../MainContainer.css";
 import { IconButton } from "@mui/material";
 import Conversation from "./Conversation";
-import ChatArea from "./ChatArea";
 import { Box } from "@chakra-ui/react";
 
 function Sidebar() {

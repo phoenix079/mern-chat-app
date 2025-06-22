@@ -1,16 +1,15 @@
-import React from 'react'
-import './MainContainer.css'
-// import Sidebar from './Sidebar'
-import ChatArea from './ChatArea'
-import { Outlet } from 'react-router-dom'
+import "./MainContainer.css";
+import Sidebar from "./Sidebar/Sidebar.jsx";
+import { Outlet } from "react-router-dom";
 
 function MainContainer() {
   return (
     <div className="main-container">
-      {/* <Sidebar/> */}
-      <Outlet/>
+      <Sidebar />
+      <Outlet />{" "}
+      {/*the Outlet component is used in a parent route component to render the matched child route's element */}
     </div>
-  )
+  );
 }
 
-export default MainContainer
+export default MainContainer;

@@ -1,10 +1,7 @@
-import React, {useState} from "react";
 import {Container,Box,Text,Tabs,TabList,TabPanels,Tab,TabPanel} from "@chakra-ui/react"
 import "./loginPage.css"
 import Login from "./Login"
-import Signup from "../Login-comp/Authentication/Signup"
-import { containerClasses } from "@mui/material";
-import { white } from "color-name";
+import Signup from "../Register/Register.jsx"
 
 const LoginPage = () => {
     return (

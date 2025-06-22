@@ -6,7 +6,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import EmojiPicker from "emoji-picker-react";
-import "./MainContainer.css";
+import "../MainContainer.css";
 import { IconButton } from "@mui/material";
 import { useRef } from "react";
 

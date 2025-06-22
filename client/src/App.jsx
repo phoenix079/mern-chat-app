@@ -1,24 +1,28 @@
-import './App.css'
-import MainContainer from './Components/MainContainer'
-import LoginPage from './Login/LoginPage'
-import { ChakraProvider } from '@chakra-ui/react'
+import "./App.css";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import MainContainer from "./Components/MainContainer";
+import LoginPage from "./Components/Login/LoginPage";
 import Welcome from "./Components/ChatArea/Welcome";
-import ChatArea from "./Components/ChatArea";
-import {Route, Routes} from "react-router-dom";
+import ChatArea from "./Components/ChatArea/ChatArea";
 
 function App() {
+  // If needed to redirect programmatically, use useNavigate hook
+  // const navigate = useNavigate();
 
   return (
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<ChakraProvider><LoginPage /></ChakraProvider>} exact/>
-          <Route path="app" element={<MainContainer />}>
-            <Route path="welcome" element={<Welcome />} />
-            <Route path="chat" element={<ChatArea />} />
-          </Route>
-        </Routes>
-      </div>
-  )
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="app" element={<MainContainer />}>
+          <Route index element={<Welcome />} />
+          <Route path="welcome" element={<Welcome />} />  {/*might be redundant*/}
+          <Route path="chat" element={<ChatArea />} />
+          <Route path="*" element={<div>404 - Not Found (inside app)</div>} />
+        </Route>
+        <Route path="*" element={<div>404 - Page Not Found</div>} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
