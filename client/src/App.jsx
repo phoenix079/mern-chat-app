@@ -14,8 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="app" element={<MainContainer />}>
-          <Route index element={<Welcome />} />
-          <Route path="welcome" element={<Welcome />} />  {/*might be redundant*/}
+          <Route index element={<Welcome />} /> {/*might be redundant*/}
+          <Route path="welcome" element={<Welcome />} />
           <Route path="chat" element={<ChatArea />} />
           <Route path="*" element={<div>404 - Not Found (inside app)</div>} />
         </Route>
