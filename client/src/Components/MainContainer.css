@@ -1,246 +1,291 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* client/src/Components/MainContainer.css */
 
-.main-container{
-    background-color:#f5f4f8;
-    height: 90vh;
-    width: 90vw;
-    display:flex;
-    border-radius: 20px;
+.main-container {
+  display: flex; /* Use flexbox to arrange children side-by-side */
+  height: 90vh; /* Set a specific height for the chat area, adjust as needed */
+  width: 90vw; /* Set a specific width for the chat area, adjust as needed */
+  /* margin: 5vh 5vw; Center the container (adjust margin as needed) */
+  border-radius: 10px; /* Rounded corners for the main container */
+  overflow: hidden; /* Hide overflowing content */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #f0f2f5; /* Light background for the container */
 }
 
-.sidebar-container{
-    
-    flex: 0.3;
-    display: flex;
-    flex-direction: column;
+.sidebar-container {
+  flex: 0 0 300px; /* Sidebar takes fixed width, doesn't grow/shrink */
+  min-width: 250px; /* Minimum width to prevent it from becoming too small */
+  max-width: 350px; /* Maximum width to prevent it from becoming too large */
+  background-color: #ffffff; /* White background for the sidebar */
+  border-right: 1px solid #e0e0e0; /* Separator from chat area */
+  display: flex;
+  flex-direction: column; /* Arrange sidebar content vertically */
 }
 
-.sidebar-header{
-    background-color:white;
-    border-radius: 20px;
-    padding:10px 5px;
-    margin:10px;
-    display: flex;
-    justify-content: space-between;
+.chatArea-container,
+.welcome-container {
+  flex: 1; /* Chat area takes up the remaining space */
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa; /* Slightly different background for chat area */
 }
 
-.sidebar-search{
-    background-color: white;
-    border-radius: 20px;
-    padding: 5px 5px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    transition: 0.25s;
-    transition-timing-function: ease-in;
+/* Sidebar Header Styles */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
 }
 
-.sidebar-search:hover{
-    background-color: lightgrey;
-}
-#search-box:hover{
-    background-color: lightgrey;
-}
-
-#search-box{
-    outline-width: 0;
-    border: none;
-    font-size: 1rem;
-    margin-left: 10px;
-    display: flex;
-    flex:1;
+/* Sidebar Search Styles */
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  margin: 10px 15px;
+  padding: 5px 10px;
 }
 
-.sidebar-conversations{
-    background-color: white;
-    border-radius: 20px;
-    padding: 5px 10px;
-    margin: 10px;
-    flex: 1;
-    overflow-y: scroll;
+.sidebar-search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex-grow: 1;
+  padding: 5px;
+  font-size: 0.9em;
+  color: #333;
 }
 
-.conversation-container{
-    display: grid;
-    grid-template-columns: 32px auto auto;
-    grid-template-rows: auto auto;
-    column-gap: 10px;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 20px;
+.sidebar-search .MuiIconButton-root {
+  color: #777; /* Icon color */
 }
 
-.con-icon{
-    grid-area: 1/1/3/2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #d9d9d9;
-    font-size: 2rem;
-    font-weight: bolder;
-    color: white;
-    height: 32px;
-    width: 32px;
-    padding: 2px;
-    border-radius: 50%;
-    justify-self: center;
-    align-self: center;
+/* Sidebar Conversations List */
+.sidebar-conversations {
+  flex-grow: 1; /* Takes remaining space, allows scrolling if content overflows */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 5px 0; /* Some padding for the list */
 }
 
-.con-title{
-    grid-area: 1/2/2/4;
-    font-weight: bold;
-    color: rgba(0,0,0,0.54);
+/* Individual Conversation Item Styles */
+.conversation-container {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.con-timeStamp{
-    justify-self: flex-end;
-    font-size: 0.75rem;
-    color: rgba(0,0,0,0.54)
+.conversation-container:hover {
+  background-color: #e6e6e6; /* Hover effect */
 }
 
-.con-lastMessage{
-    font-size: 0.75rem;
+.conversation-container:active {
+  background-color: #dcdcdc; /* Active/click effect */
 }
 
-.message-container{
-    background-color: aquamarine;
-    flex:1;
+.con-icon {
+  background-color: #673ab7; /* Purple background for icon */
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
-.welcome-container{
-    flex: 0.7;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    color: rgba(0,0,0,0.54);
-    border-radius: 20px;
+.con-title {
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
 }
 
-/* start of chatArea css*/
-.chatArea-container{
-    display: flex;
-    flex: 2;
-    flex-direction: column;
-    height: 100%;
-
-    .chatArea-header{
-        background-color: rgba(173, 36, 215, 0.33);
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        
-        .user{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            .span{
-                display: flex;
-                flex-direction: column;
-                p{
-                    font-size: 14px;
-                    color: rgb(103, 101, 101);
-                }
-            }
-        }
-        .more-func{
-            display: flex;
-            gap: 10px;
-        }        
-    }
-
-    .message-container{
-        padding: 20px;
-        flex: 1;
-        display: flex;
-        overflow-y: scroll;
-        flex-direction: column;
-        gap: 20px;
-        .message{
-            align-self: flex-start;
-            gap: 15px;
-            max-width: 70%;
-            .texts{
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-                gap: 5px;
-                img{
-                    width: 100%;
-                    height: 300px;
-                    object-fit: cover;
-                    border-radius: 10px;
-                }
-                p{
-                    background-color: rgb(82, 75, 75);
-                    padding: 20px;
-                    border-radius: 10px;
-                    color: white;
-                }
-            }
-        }
-        .message-own{
-            align-self: flex-end;
-            max-width: 70%;
-            .texts{
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-                gap: 5px;
-                img{
-                    width: 100%;
-                    height: 300px;
-                    object-fit: cover;
-                    border-radius: 10px;
-                }
-                p{
-                    background-color: rgb(113, 16, 174);
-                    padding: 20px;
-                    border-radius: 10px;
-                    color: white;
-                }
-            }
-        }
-
-    }
-
-    .text-input-area{
-        padding: 10px;
-        background-color: rgba(173, 36, 215, 0.33);
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: space-between;
-        .text-func{
-            display: flex;
-            gap: 10px;
-        }
-        input{
-            background-color: transparent;
-            flex: 1;
-            padding: 10px;
-            border-radius: 10px;
-            transition: 0.25s;
-            font-size: 16px;
-            border: none;
-            outline-width: 0px;
-        }
-        input:hover{
-            background-color: rgba(205, 70, 246, 0.477);
-        }
-        .emoji{
-            position: relative;
-            .picker{
-                position: absolute;
-                bottom: 50px;
-                right: 0px;
-            }
-        }
-    }
+.con-lastMessage {
+  font-size: 0.85em;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 10px; /* Space between title and message */
 }
-/* end of chat area */
+
+.con-timeStamp {
+  font-size: 0.75em;
+  color: #999;
+  margin-left: 15px; /* Space from last message */
+  flex-shrink: 0; /* Prevent timestamp from shrinking */
+}
 
 
+/* ChatArea specific styles */
+.chatArea-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
+}
+
+.chatArea-header .user {
+  display: flex;
+  align-items: center;
+}
+
+.chatArea-header .user .span {
+  margin-left: 10px;
+}
+
+.chatArea-header .user span {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.chatArea-header .user p {
+  font-size: 0.8em;
+  color: #777;
+}
+
+.message-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message, .message-own {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.message .texts {
+  background-color: #ffffff;
+  border-radius: 15px 15px 15px 0;
+  padding: 10px 15px;
+  max-width: 70%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-own {
+  justify-content: flex-end;
+}
+
+.message-own .texts {
+  background-color: #673ab7; /* Your primary color for own messages */
+  color: white;
+  border-radius: 15px 15px 0 15px;
+  padding: 10px 15px;
+  max-width: 70%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message .texts p, .message-own .texts p {
+  margin: 0 0 5px 0;
+  word-wrap: break-word; /* Ensure long words break */
+}
+
+.message .texts span, .message-own .texts span {
+  font-size: 0.7em;
+  color: #999;
+  display: block; /* Ensures timestamp is on a new line */
+  text-align: right;
+  margin-top: 5px;
+}
+
+.message-own .texts span {
+  color: rgba(255, 255, 255, 0.7); /* Lighter color for timestamp on dark background */
+}
+
+.message-own img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.text-input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #ffffff;
+}
+
+.text-input-area input {
+  flex-grow: 1;
+  border: none;
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin: 0 10px;
+  outline: none;
+  font-size: 1em;
+}
+
+.text-input-area .MuiIconButton-root {
+  color: #673ab7; /* Primary color for icons */
+}
+
+.emoji {
+  position: relative; /* For positioning the emoji picker */
+}
+
+.emoji .picker {
+  position: absolute;
+  bottom: 60px; /* Adjust based on input area height */
+  right: 0;
+  z-index: 10;
+}
+
+/* Welcome Container Styles */
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f8f9fa;
+  color: #555;
+  text-align: center;
+  padding: 20px;
+}
+
+.welcome-container img {
+  max-width: 200px;
+  margin-bottom: 20px;
+  opacity: 0.7; /* Slightly faded logo */
+}
+
+.welcome-container p {
+  font-size: 1.2em;
+  color: #777;
+}
+
+/* Basic App-wide CSS for background if not using ChakraProvider for it */
+/* Ensure your App.css or index.css has this if you want a global background */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif; /* Recommended font */
+}
+
+#root, .App {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dedede; /* Light grey background for the whole page */
+}

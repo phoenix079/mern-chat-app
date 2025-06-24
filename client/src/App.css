@@ -1,12 +1,30 @@
-*{
-  margin:0;
+/* client/src/index.css */
+
+/* Important: Reset default browser margins/paddings */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Make html and body take full viewport height */
+  overflow: hidden; /* Prevent scrolling if only background is present */
 }
-.App{
-  background-color:#dddede;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("./assets/images/seamless-pattern-with-different-social-media-icons_405287-75.avif");
-  background-position: center;
+
+#root, .App {
+  min-height: 100vh; /* Ensure the root div and App component always take full viewport height */
+  width: 100vw; /* Ensure they always take full viewport width */
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  /*
+    Apply the background to the .App div (or #root) or even body,
+    depending on where you want it to be.
+    Applying to .App ensures it's part of your React root.
+  */
+  background-image: url("./assets/images/seamless-pattern-with-different-social-media-icons_405287-75.avif"); /* REPLACE WITH YOUR ACTUAL BACKGROUND IMAGE URL/PATH */
+  background-size: auto;
+  background-position: center; /* Centers the background image */
+  background-repeat: repeat;
+  background-attachment: fixed; /* Optional: Makes background scroll with page if there's content overflow */
+  font-family: "Inter", sans-serif; /* Recommended font */
 }
+
+/* Any other global styles you have */
