@@ -1,39 +1,46 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 const userSchema = mongoose.Schema(
   {
-    name: { type: "String", required: true },
-    email: { type: "String", unique: true, required: true },
-    password: { type: "String", required: true },
-    pic: {
-      type: "String",
+    name: {
+      type: String,
       required: true,
-      default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb51ZwKCKqU4ZrB9cfaUNclbeRiC-V-KZsfQ&s-icon-25.jpg",
+      unique: true,
+      trim: true,
     },
-    isAdmin: {
-      type: Boolean,
+    email: {
+      type: String,
       required: true,
+      unique: true,
+      match: [/.+\@.+\..+/, "Please enter a valid email"],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    profilePic: {
+      type: String,
+      default: "", // Optional: URL to profile picture
+    },
+    isOnline: {
+      type: Boolean,
       default: false,
     },
+    lastSeen: {
+      type: Date,
+      default: Date.now,
+    },
+    // Optional: if you plan to have admin users
+    // isAdmin: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
-  { timestaps: true }
+  {
+    timestamps: true, // Adds createdAt and updatedAt
+  }
 );
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-userSchema.pre("save", async function (next) {
-  if (!this.isModified) {
-    next();
-  }
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = bcrypt.hash(this.password, salt);
-});
 
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;
