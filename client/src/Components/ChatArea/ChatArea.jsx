@@ -30,7 +30,7 @@ const ChatArea= () => {
       <div className="chatArea-header">
         <div className="user">
           <IconButton>
-            <PersonIcon/>
+            <PersonIcon />
           </IconButton>
           <div className="span">
             <span>ABC</span>
@@ -39,14 +39,19 @@ const ChatArea= () => {
         </div>
         <div className="more-func">
           <IconButton>
-            <InfoIcon/>
+            <InfoIcon />
           </IconButton>
         </div>
       </div>
       <div className="message-container">
         <div className="message">
           <div className="texts">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit corporis, suscipit nihil dignissimos at labore velit, enim, quaerat vero corrupti doloremque error consequuntur quam iusto ratione! Fuga accusantium quos at.</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
+              corporis, suscipit nihil dignissimos at labore velit, enim,
+              quaerat vero corrupti doloremque error consequuntur quam iusto
+              ratione! Fuga accusantium quos at.
+            </p>
             <span>1 min ago</span>
           </div>
         </div>
@@ -64,7 +69,10 @@ const ChatArea= () => {
         </div>
         <div className="message-own">
           <div className="texts">
-            <img  src="https://www.akamai.com/site/im-demo/media-viewer/01.jpg?imwidth=5000" alt="car-1" />
+            <img
+              src="https://www.akamai.com/site/im-demo/media-viewer/01.jpg?imwidth=5000"
+              alt="car-1"
+            />
             <p>abcd</p>
             <span>1 min ago</span>
           </div>
@@ -86,21 +94,27 @@ const ChatArea= () => {
       <div className="text-input-area">
         <div className="text-func">
           <IconButton>
-            <AttachFileIcon/>
+            <AttachFileIcon />
           </IconButton>
         </div>
-        <input type="text" placeholder="Type your message"
-          value={Text} 
-          onChange={(e)=>setText(e.target.value)}/>
+        <input
+          type="text"
+          placeholder="Type your message"
+          value={Text}
+          onChange={(e) => setText(e.target.value)}
+        />
         <div className="emoji">
-          <IconButton>
-            <EmojiEmotionsIcon className="emoji-icon" onClick={() =>setOpen((prev)=>!prev)}/>
-            <EmojiPicker className="picker" open={open} onEmojiClick={handleEmoji}/>
+          <IconButton onClick={() => setOpen((prev) => !prev)}>
+            <EmojiEmotionsIcon className="emoji-icon" /> {/* No onClick here */}
+            {/* The EmojiPicker should be conditionally rendered, not always open in JSX */}
+            {open && (
+              <EmojiPicker className="picker" onEmojiClick={handleEmoji} />
+            )}
           </IconButton>
         </div>
         <div className="send">
           <IconButton>
-            <SendRoundedIcon/>
+            <SendRoundedIcon />
           </IconButton>
         </div>
       </div>

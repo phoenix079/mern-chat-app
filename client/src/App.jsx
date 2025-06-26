@@ -1,5 +1,6 @@
+// App.jsx
 import "./App.css";
-import React,{useEffect,useState}from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import MainContainer from "./Components/MainContainer";
 import LoginPage from "./Components/Login/LoginPage";
@@ -7,55 +8,45 @@ import Welcome from "./Components/ChatArea/Welcome";
 import ChatArea from "./Components/ChatArea/ChatArea";
 
 function App() {
-  // If needed to redirect programmatically, use useNavigate hook
-  // const navigate = useNavigate();
-
-
-
-  
-  // --- DEVELOPMENT MODE FLAG ---
-  // Set to `true` to bypass login and access /app routes directly for development.
-  // Set to `false` (or remove) for production/actual authentication flow.
-  const isDevMode = true; // <--- Set this to false for production!
   const [user, setUser] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const navigate = useNavigate();
-  // --- END DEVELOPMENT MODE FLAG ---
 
+  // Effect to initialize user state from localStorage on component mount
   useEffect(() => {
     try {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo) {
-        setUser(userInfo);
-      } else if (isDevMode) {
-        // If no user in localStorage and in development mode,
-        // create a mock user for easy access to /app routes.
-        console.log("DEV MODE: No user found, creating mock user.");
-        setUser({ name: "Dev User", email: "dev@example.com", _id: "dev123" });
+        setUser(userInfo); // Set user state if user info is found
       }
     } catch (error) {
       console.error("Failed to parse user info from localStorage:", error);
       localStorage.removeItem("userInfo"); // Clear corrupted data
+      setUser(null); // Ensure user state is null
     } finally {
-      setLoadingAuth(false);
+      setLoadingAuth(false); // Authentication check is complete
     }
   }, []); // Runs once on mount
 
+  // Effect to handle redirection based on authentication state
   useEffect(() => {
     if (!loadingAuth) {
+      // Only run navigation logic after initial auth check
       if (user) {
-        // User is logged in (real or mock)
+        // User is logged in
+        // If current path is '/', redirect to '/app/welcome'
         if (window.location.pathname === "/") {
-          navigate("/app/welcome"); // Redirect from login page to app
+          navigate("/app/welcome");
         }
       } else {
-        // User is NOT logged in (and not in dev mode, or dev mode didn't create a mock user)
+        // User is NOT logged in
+        // If current path starts with '/app', redirect to '/' (login page)
         if (window.location.pathname.startsWith("/app")) {
-          navigate("/"); // Redirect from protected app route to login
+          navigate("/");
         }
       }
     }
-  }, [user, loadingAuth, navigate]);
+  }, [user, loadingAuth, navigate]); // Reruns when user, loadingAuth, or navigate changes
 
   if (loadingAuth) {
     return (
@@ -74,16 +65,30 @@ function App() {
     );
   }
 
-
-
-
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={user ? <MainContainer /> : <LoginPage />} />
-        <Route path="app" element={<MainContainer />}>
-          <Route index element={<Welcome />} /> {/*might be redundant*/}
+        {/*
+          IMPORTANT: Pass setUser to both LoginPage and MainContainer.
+          If user is truthy, render MainContainer. Otherwise, LoginPage.
+          setUser must be available to update the top-level user state.
+        */}
+        <Route
+          path="/"
+          element={
+            user ? (
+              <MainContainer setUser={setUser} />
+            ) : (
+              <LoginPage setUser={setUser} />
+            )
+          }
+        />
+        {/*
+          For nested routes under /app, MainContainer is always rendered.
+          It *must* also receive setUser so it can pass it further down to Sidebar.
+        */}
+        <Route path="app" element={<MainContainer setUser={setUser} />}>
+          <Route index element={<Welcome />} />
           <Route path="welcome" element={<Welcome />} />
           <Route path="chat" element={<ChatArea />} />
           <Route path="*" element={<div>404 - Not Found (inside app)</div>} />

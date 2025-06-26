@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../lib/jwt");
 const User = require("../models/userSchema.js");
 
-
 //@description     Get or Search all users
 //@route           GET /api/user?search=
 //@access          Public
@@ -28,7 +27,7 @@ const User = require("../models/userSchema.js");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, profilePic } = req.body;
+    const { name, email, password } = req.body;
 
     //check for mandatory fields
     if (!name || !email || !password) {
@@ -52,7 +51,6 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      profilePic,
     });
 
     if (user) {
@@ -61,7 +59,6 @@ const registerUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        profilePic: user.profilePic,
         token,
       });
     } else {
@@ -71,7 +68,12 @@ const registerUser = async (req, res) => {
   } catch (error) {
     //Error Handling:
     console.error("Error during user registration:", error);
-    res.status(500).json({ message: "Server error during registration", error: error.message });
+    res
+      .status(500)
+      .json({
+        message: "Server error during registration",
+        error: error.message,
+      });
   }
 };
 
@@ -108,15 +110,22 @@ const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      profilePic: user.profilePic,
       token, // remove this if using cookie-based JWT
     });
   } catch (error) {
     console.error("Error during user login:", error);
-    res.status(500).json({ message: "Server error during login", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Server error during login", error: error.message });
   }
 };
 
+const logoutUser = (req, res) => {
+  // In a stateless JWT system, the primary logout action is clearing the token client-side.
+  // If you had server-side refresh tokens or session management, you'd invalidate them here.
+  // For now, we just send a success message.
+  res.status(200).json({ message: "Logged out successfully" });
+  console.log("User logout request received."); // For server-side logging
+};
 
-
-module.exports = {registerUser, loginUser};
+module.exports = { registerUser, loginUser, logoutUser };

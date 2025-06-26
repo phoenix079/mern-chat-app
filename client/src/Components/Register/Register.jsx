@@ -17,13 +17,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Signup = () => {
+const Signup = ({setUser}) => {
   const [show, setShow] = useState(false);
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  // const [pic,setPic] = useState();    //used for setting up profile pic
+  // const [pic,setPic] = useState();    //used for setting up profile picz
   const [loading, setLoading] = useState(false); // State for loading indicator during registration
   const toast = useToast(); // Initialize useToast hook for Chakra UI notifications
   const navigate = useNavigate(); // Initialize useNavigate hook for programmatic navigation
@@ -79,7 +79,7 @@ const Signup = () => {
 
       // Make the POST request to your backend registration API using axios
       const { data } = await axios.post(
-        "/api/user", // Your actual backend registration endpoint (e.g., /api/users or /api/register)
+        "http://localhost:5000/api/user/register", // Your actual backend registration endpoint (e.g., /api/users or /api/register)
         { name, email, password }, // Request body with user registration data
         config // Configuration object with headers
       );
@@ -97,7 +97,7 @@ const Signup = () => {
       // and store their info. Or, you might redirect them to the login page.
       // For this example, we'll store info and redirect to app/welcome, similar to login.
       localStorage.setItem("userInfo", JSON.stringify(data));
-
+      setUser(data);
       setLoading(false); // Stop loading
       navigate("/app/welcome"); // Navigate to the welcome page after successful registration
     } catch (error) {

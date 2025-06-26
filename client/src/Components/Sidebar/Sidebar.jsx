@@ -1,55 +1,55 @@
-import React, {useState, useEffect} from "react";
+// client/src/Components/Sidebar/Sidebar.jsx
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SearchIcon from '@mui/icons-material/Search';
-import "../MainContainer.css";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
+
 import { IconButton } from "@mui/material";
-import Conversation from "./Conversation";
+
+import { useDisclosure } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
+
+import "../MainContainer.css";
+import Conversation from "./Conversation";
 import { useNavigate } from "react-router-dom";
+import LogoutMenu from "./LogoutMenu";
 
-
-function Sidebar() {
+// Sidebar MUST accept setUser as a prop to pass it down
+function Sidebar({ setUser }) {
   const [fetchAgain, setFetchAgain] = useState(false);
   const [conversations, setConversations] = useState([]);
-  const [loadingChats, setLoadingChats] = useState(true); // New state for loading chats
-  const [user, setUser] = useState(null); // State to store logged-in user info
-  const navigate = useNavigate();
+  const [loadingChats, setLoadingChats] = useState(true);
+  const [internalUser, setInternalUser] = useState(null); // Renamed internal state to avoid confusion
 
-  // Effect to get user info from localStorage on component mount
-  // This simulates getting the authenticated user's details after login
+  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // This useEffect fetches user info for Sidebar's internal display
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (userInfo) {
-      setUser(userInfo);
-      // In a real app, you'd fetch chats based on this user's ID/token
+      setInternalUser(userInfo);
       fetchConversations(userInfo);
     } else {
-      // If no user info, redirect to login page (protected route logic)
+      // If no userInfo in localStorage, and we're on a protected route,
+      // navigate home. The App.jsx's useEffect handles the primary redirect.
       navigate("/");
     }
-  }, [navigate]); // navigate is stable, but good to include if it changes often
+  }, [navigate]); // navigate is stable. Removed internalUser from dependency to prevent loop with fetchConversations
 
-  // Simulate fetching conversations (replace with actual API call later)
   const fetchConversations = (loggedInUser) => {
     setLoadingChats(true);
-    // In a real application, you'd make an axios.get request here:
-    // axios.get(`/api/chats?userId=${loggedInUser._id}`, { headers: { Authorization: `Bearer ${loggedInUser.token}` } })
-    // .then(response => { setConversations(response.data); setLoadingChats(false); })
-    // .catch(error => { console.error("Error fetching chats:", error); setLoadingChats(false); });
-
-    // For now, use mock data after a short delay
     setTimeout(() => {
       setConversations([
         {
           name: "Bhaipo",
           lastMessage: "Hey, how are you?",
           timeStamp: "10:30 AM",
-          id: 1, // Add unique IDs for keys in map
+          id: 1,
         },
         {
           name: "Mayukh College",
@@ -77,8 +77,9 @@ function Sidebar() {
         },
       ]);
       setLoadingChats(false);
-    }, 1000); // Simulate network delay
+    }, 1000);
   };
+
   return (
     <>
       <div className="sidebar-container">
@@ -86,34 +87,46 @@ function Sidebar() {
           {/* User Profile / Avatar */}
           <div>
             <IconButton>
-              {/* Display user's initial or actual profile pic */}
-              {user ? (
-                <AccountCircleIcon /> // Or use an Avatar component with user.pic if you have it
+              {internalUser?.pic ? (
+                <img
+                  src={internalUser.pic}
+                  alt="Profile Pic"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
               ) : (
-                <AccountCircleIcon />
+                <AccountCircleIcon style={{ fontSize: "2.1rem" }} />
               )}
             </IconButton>
-            {user && (
+            {/* {internalUser && (
               <span style={{ fontWeight: "bold", marginLeft: "5px" }}>
-                {user.name}
+                {internalUser.name}
               </span>
-            )}
+            )} */}
           </div>
 
           {/* Action Buttons */}
-          <div>
+          <div className="sidebar-action-buttons">
             <IconButton>
-              <PersonAddAltIcon /> {/* Add Contact */}
+              <PersonAddAltIcon />
             </IconButton>
             <IconButton>
-              <GroupAddIcon /> {/* Create Group */}
+              <GroupAddIcon />
             </IconButton>
             <IconButton>
-              <AddCircleIcon /> {/* New Chat */}
+              <AddCircleIcon />
             </IconButton>
-            <IconButton>
-              <MoreVertIcon /> {/* More Options */}
-            </IconButton>
+            {/* LogoutMenu MUST receive setUser */}
+            <LogoutMenu
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onClose={onClose}
+              setUser={setUser}
+            />
           </div>
         </div>
 
@@ -137,10 +150,8 @@ function Sidebar() {
             </p>
           ) : conversations.length > 0 ? (
             conversations.map((conversation) => {
-              // Navigate to the chat area for the selected conversation
-              // You'd typically pass a conversation ID here
               const handleConversationClick = () => {
-                navigate(`/app/chat?id=${conversation.id}`); // Example: /app/chat?id=1
+                navigate(`/app/chat?id=${conversation.id}`);
               };
               return (
                 <div key={conversation.id} onClick={handleConversationClick}>

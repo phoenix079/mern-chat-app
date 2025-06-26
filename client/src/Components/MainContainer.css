@@ -8,7 +8,11 @@
   border-radius: 10px; /* Rounded corners for the main container */
   overflow: hidden; /* Hide overflowing content */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  background-color: #f0f2f5; /* Light background for the container */
+  background-image: url("./assets/images/background.avif"); /* REPLACE WITH YOUR ACTUAL BACKGROUND IMAGE URL/PATH */
+  background-size: auto;
+  background-position: center; /* Centers the background image */
+  background-repeat: repeat;
+  background-attachment: fixed; /* Optional: Makes background scroll with page if there's content overflow */
 }
 
 .sidebar-container {
@@ -33,10 +37,40 @@
 .sidebar-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Vertically align items in the header */
   padding: 10px 15px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #ffffff;
+}
+
+/* Styles for the action buttons group (the div with className="sidebar-action-buttons") */
+.sidebar-action-buttons {
+  display: flex;
+  align-items: center; /* Vertically align all children */
+  gap: 0px; /* Consistent spacing between buttons */
+  /* This ensures the flex container itself is tight and correctly aligned */
+}
+
+/* IMPORTANT: Target all MUI IconButtons within the header for consistent styling */
+/* This rule is crucial for uniform sizing, circular hover effects, and vertical alignment */
+.sidebar-header .MuiIconButton-root {
+  width: 44px; /* Standardize width for all icon buttons */
+  height: 44px; /* Standardize height for all icon buttons */
+  padding: 12px; /* Standardize internal padding (half of width/height for centering) */
+  box-sizing: border-box; /* Crucial: ensures padding is included in width/height */
+  border-radius: 50%; /* Force circular shape for the button itself */
+  margin: 0 !important; /* Override any and all default margins, including !important for last resort */
+  display: flex; /* Ensure icon is centered within the button */
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle; /* Explicitly tell inline elements to align their middle points */
+
+  /* Additional attempt to ensure inner icon alignment */
+  & .MuiSvgIcon-root { /* Target the SVG icon directly inside MUI IconButton */
+      display: block; /* Ensure it behaves like a block element for precise centering */
+      margin: 0 auto; /* Center horizontally if there's any remaining space */
+      /* vertical-align: middle;             Double check vertical alignment */
+  }
 }
 
 /* Sidebar Search Styles */
@@ -47,16 +81,6 @@
   border-radius: 20px;
   margin: 10px 15px;
   padding: 5px 10px;
-}
-
-.sidebar-search input {
-  border: none;
-  background: transparent;
-  outline: none;
-  flex-grow: 1;
-  padding: 5px;
-  font-size: 0.9em;
-  color: #333;
 }
 
 .sidebar-search .MuiIconButton-root {

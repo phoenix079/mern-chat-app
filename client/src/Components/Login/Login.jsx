@@ -17,10 +17,10 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setUser}) => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleClick = () => setShow(!show);
   const [loading, setLoading] = useState(false); // State for loading indicator
   const toast = useToast(); // Initialize useToast hook for Chakra UI notifications
@@ -50,7 +50,7 @@ const Login = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/user/login", // Your actual backend login endpoint
+        "http://localhost:5000/api/user/login", // Your actual backend login endpoint
         { email, password }, // Request body with email and password
         config // Configuration object with headers
       );
@@ -67,14 +67,14 @@ const Login = () => {
       // Save user information (e.g., token, user details) to local storage
       // This userInfo will likely be used for authentication in subsequent requests
       localStorage.setItem("userInfo", JSON.stringify(data));
-
+      setUser(data);
       setLoading(false); // Stop loading
       navigate("/app/welcome"); // Navigate to the welcome page inside the app
     } catch (error) {
       // Handle errors from the API call
       toast({
         title: "Error Occurred!",
-        description: error.response?.data?.message || error.message, // Get error message from response or generic
+        description: error.response?.data?.message || "Login failed!", // Get error message from response or generic
         status: "error",
         duration: 5000,
         isClosable: true,

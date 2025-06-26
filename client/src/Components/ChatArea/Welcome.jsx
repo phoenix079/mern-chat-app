@@ -6,7 +6,7 @@ function Welcome() {
     <div className="welcome-container">
       {/* Replaced empty src with a placeholder image URL */}
       <img
-        src="https://placehold.co/200x200/BDB2FA/4A235A?text=Chat+App"
+        src="/assets/images/translogo.png"
         alt="Chat App Logo"
       />
       <p>Select a chat to start messaging.</p>

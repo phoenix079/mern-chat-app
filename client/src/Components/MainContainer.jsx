@@ -1,13 +1,15 @@
+// client/src/Components/MainContainer.jsx
 import "./MainContainer.css";
 import Sidebar from "./Sidebar/Sidebar.jsx";
 import { Outlet } from "react-router-dom";
 
-function MainContainer() {
+// MainContainer MUST accept setUser as a prop to pass it down
+function MainContainer({ setUser }) {
   return (
     <div className="main-container">
-      <Sidebar />
-      <Outlet />{" "}
-      {/*the Outlet component is used in a parent route component to render the matched child route's element */}
+      {/* Sidebar MUST receive setUser */}
+      <Sidebar setUser={setUser} />
+      <Outlet />
     </div>
   );
 }
