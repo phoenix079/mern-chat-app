@@ -23,7 +23,7 @@ const Signup = ({setUser}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  // const [pic,setPic] = useState();    //used for setting up profile picz
+  // const [pic,setPic] = useState();    //used for setting up profile pic
   const [loading, setLoading] = useState(false); // State for loading indicator during registration
   const toast = useToast(); // Initialize useToast hook for Chakra UI notifications
   const navigate = useNavigate(); // Initialize useNavigate hook for programmatic navigation

@@ -8,11 +8,6 @@
   border-radius: 10px; /* Rounded corners for the main container */
   overflow: hidden; /* Hide overflowing content */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  background-image: url("./assets/images/background.avif"); /* REPLACE WITH YOUR ACTUAL BACKGROUND IMAGE URL/PATH */
-  background-size: auto;
-  background-position: center; /* Centers the background image */
-  background-repeat: repeat;
-  background-attachment: fixed; /* Optional: Makes background scroll with page if there's content overflow */
 }
 
 .sidebar-container {
@@ -30,7 +25,6 @@
   flex: 1; /* Chat area takes up the remaining space */
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa; /* Slightly different background for chat area */
 }
 
 /* Sidebar Header Styles */
@@ -66,10 +60,11 @@
   vertical-align: middle; /* Explicitly tell inline elements to align their middle points */
 
   /* Additional attempt to ensure inner icon alignment */
-  & .MuiSvgIcon-root { /* Target the SVG icon directly inside MUI IconButton */
-      display: block; /* Ensure it behaves like a block element for precise centering */
-      margin: 0 auto; /* Center horizontally if there's any remaining space */
-      /* vertical-align: middle;             Double check vertical alignment */
+  & .MuiSvgIcon-root {
+    /* Target the SVG icon directly inside MUI IconButton */
+    display: block; /* Ensure it behaves like a block element for precise centering */
+    margin: 0 auto; /* Center horizontally if there's any remaining space */
+    /* vertical-align: middle;             Double check vertical alignment */
   }
 }
 
@@ -154,7 +149,6 @@
   flex-shrink: 0; /* Prevent timestamp from shrinking */
 }
 
-
 /* ChatArea specific styles */
 .chatArea-header {
   display: flex;
@@ -192,7 +186,8 @@
   flex-direction: column;
 }
 
-.message, .message-own {
+.message,
+.message-own {
   display: flex;
   margin-bottom: 15px;
 }
@@ -218,12 +213,14 @@
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.message .texts p, .message-own .texts p {
+.message .texts p,
+.message-own .texts p {
   margin: 0 0 5px 0;
   word-wrap: break-word; /* Ensure long words break */
 }
 
-.message .texts span, .message-own .texts span {
+.message .texts span,
+.message-own .texts span {
   font-size: 0.7em;
   color: #999;
   display: block; /* Ensures timestamp is on a new line */
@@ -232,7 +229,12 @@
 }
 
 .message-own .texts span {
-  color: rgba(255, 255, 255, 0.7); /* Lighter color for timestamp on dark background */
+  color: rgba(
+    255,
+    255,
+    255,
+    0.7
+  ); /* Lighter color for timestamp on dark background */
 }
 
 .message-own img {
@@ -306,7 +308,8 @@ body {
   font-family: "Inter", sans-serif; /* Recommended font */
 }
 
-#root, .App {
+#root,
+.App {
   min-height: 100vh;
   display: flex;
   justify-content: center;

@@ -19,7 +19,7 @@ html, body {
     depending on where you want it to be.
     Applying to .App ensures it's part of your React root.
   */
-  background-image: url("./assets/images/background.avif"); /* REPLACE WITH YOUR ACTUAL BACKGROUND IMAGE URL/PATH */
+  background-image: url("/assets/images/background.avif"); /* REPLACE WITH YOUR ACTUAL BACKGROUND IMAGE URL/PATH */
   background-size: auto;
   background-position: center; /* Centers the background image */
   background-repeat: repeat;
